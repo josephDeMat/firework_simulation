@@ -22,7 +22,7 @@ public class Particle {
 
 
     //this method will integrate the particle given a time period  it will update the position and the velocity of the
-    //particle using the formula position = velocity * time
+    //particle using the formula position = velocity * time,
     private void  integrate(double duration){
         if(inverseMass <= 0.0f)return;
 

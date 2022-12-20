@@ -115,6 +115,6 @@ public class Vector3 {
 
     //prints out the vector
     public void vectorDescription(){
-        System.out.println("vecotor x: " + this.x +"    y:"+this.y + "    z:"+this.z);
+        System.out.println("vector x: " + this.x +"    y:"+this.y + "    z:"+this.z);
     }
 }
