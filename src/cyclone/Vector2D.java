@@ -103,4 +103,15 @@ public class Vector2D {
         System.out.println("vector x: " + this.x +"    y:"+this.y);
     }
 
+
+
+
+    //getters and setters for the vector values
+    public double getX(){
+        return this.x;
+    }
+
+    public double getY(){
+        return this.y;
+    }
 }
