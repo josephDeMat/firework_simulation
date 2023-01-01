@@ -6,39 +6,31 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class FireworkPannel extends JPanel implements Runnable{
+public class FireworkPanel extends JPanel implements Runnable{
 
     //settings of the "screen"
     final int WIDTH = 800;
     final int HEIGHT = 800;
     final int FPS = 30;
-    int x = 100;
+
+    //thread that will run the demo
     Thread demoThread;
 
 
-    //TEST
-    Firework firework1;
-    Firework firework2;
-
-
-    FireworkPannel(){
+    //constructor
+    FireworkPanel(){
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-
-
-        //TEST
-        firework1 = new Firework();
-        //firework2 = new Firework(new Vector2D(100,800-10));
-
-        Fireworks.addExplodable(firework1);
-        //Fireworks.addFirework(firework2);
     }
+
 
     //method to start the firework demo
     public void startFireworkDemo(){
         demoThread = new Thread(this);
         demoThread.start();
+
+        //adding a mouse listener to the demo so that every time screen is clicked a firework starts
         this.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 Fireworks.addExplodable(new Firework());
@@ -46,13 +38,13 @@ public class FireworkPannel extends JPanel implements Runnable{
         });
     }
 
+
     //simulation thread where the time loop is created
     @Override
     public void run() {
 
         double drawInterval = 1000000000/FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
-
 
         while (demoThread  != null){
             //update information such as firework time and new particles to be created
@@ -81,14 +73,16 @@ public class FireworkPannel extends JPanel implements Runnable{
 
     }
 
+
     private void update(){
         Fireworks.updateAll();
     }
 
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D brush = (Graphics2D)g;
-        Fireworks.drawAll(g);
+        Fireworks.drawAll(brush);
     }
 
 

@@ -10,14 +10,14 @@ public class FireworkDemo {
         window.setResizable(false);
         window.setTitle("Firework Demo physics engine");
 
-        FireworkPannel fireworkPannel = new FireworkPannel();
-        window.add(fireworkPannel);
+        FireworkPanel fireworkPanel = new FireworkPanel();
+        window.add(fireworkPanel);
 
         window.pack();
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        fireworkPannel.startFireworkDemo();
+        fireworkPanel.startFireworkDemo();
     }
 }

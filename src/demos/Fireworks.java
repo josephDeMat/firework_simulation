@@ -1,44 +1,44 @@
 package demos;
 
-import cyclone.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
+
 
 public class Fireworks {
-    public static ArrayList<Explodable>explodables = new ArrayList();
+    public static ArrayList<Explodable>explodables = new ArrayList<Explodable>();
     public static int numPayloads =5;
 
-    public Fireworks(){
 
-    }
-
-
-
+    //go through all the explodable entities and update them all
     public static void updateAll(){
-        for(int i = 0 ; i<explodables.size();i++){
+        for(int i = 0 ; i<explodables.size();i++){//cannot change to enhanced for loop or will leave concurrentModification exception
             explodables.get(i).update();
         }
     }
 
-    public static void drawAll(Graphics g){
+
+    //go through all the explodable entities and draw them all
+    public static void drawAll(Graphics2D g){
         for(int i = 0 ; i<explodables.size();i++){
             explodables.get(i).draw(g);
-            System.out.println("firework number: "+i);
         }
     }
 
 
+    //method used add one explodable object to the explodables collection
     public static void addExplodable(Explodable explodable){
         explodables.add(explodable);
     }
 
-    // as soon as spawned in all new explodables have different velocity and speed
-    public static void addE(ArrayList<Explodable> explodabless){
+
+    //method for adding and array list of explodables to the explodables collection
+    public static void addExplodables(ArrayList<Explodable> explodabless){
         explodables.addAll(explodabless);
     }
 
+
+    //method used to remove one explodable object from the explodables collection
     public static void removeExplodable(Explodable explodable){
         explodables.remove(explodable);
 
