@@ -109,6 +109,7 @@ public class FireworkPanel extends JPanel implements Runnable{
                     break;
                 case KeyEvent.VK_L:
                     Fireworks.addExplodable(new LargeFirework());
+                    break;
             }
         }
     }
