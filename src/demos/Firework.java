@@ -13,19 +13,24 @@ public class Firework extends Particle implements Explodable {
     Color color = Color.red;
     double lifeTime = 7; //lifetime of the firework
     boolean explosive;
-    int numPayloads = 1000;
+    int numPayloads = 50;
     Random random;
     private int width = 4;
     private int height = 15;
+    double randomXVelocity;
 
-
+    //random comments
     //the firework class will have two constructors one for a standard firework
     public Firework() {
         random = new Random();
         this.setMass(1);//mass is not needed for now as no forces are added but will be used later when calculating force of gravity;
         this.setPosition(new Vector2D(400 - width, 800 - height));
         this.setVelocity(new Vector2D(0, 0));
-        this.setAcceleration(new Vector2D(0, -20));
+
+        //getting random velocity for the x coordinates so that the firework doesn't always fly straight
+        randomXVelocity =Math.random() * (2 -(-2)) -2;
+
+        this.setAcceleration(new Vector2D(randomXVelocity, -20));
         this.setDamping(0.99);
         explosive = true;
     }
