@@ -8,15 +8,15 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Firework extends Particle implements Explodable {
+public abstract class Firework extends Particle implements Explodable {
 
     Color color = Color.red;
     double lifeTime = 7; //lifetime of the firework
     boolean explosive;
-    int numPayloads = 50;
+    private int numPayloads = 50;
     Random random;
-    private int width = 4;
-    private int height = 15;
+    private int width;
+    private int height;
     double randomXVelocity;
 
     //random comments
@@ -24,7 +24,6 @@ public class Firework extends Particle implements Explodable {
     public Firework() {
         random = new Random();
         this.setMass(1);//mass is not needed for now as no forces are added but will be used later when calculating force of gravity;
-        this.setPosition(new Vector2D(400 - width, 800 - height));
         this.setVelocity(new Vector2D(0, 0));
 
         //getting random velocity for the x coordinates so that the firework doesn't always fly straight
@@ -56,12 +55,18 @@ public class Firework extends Particle implements Explodable {
     }
 
 
+    public void initiateFirework(int width,int height,int numPayloads){
+        this.width = width;
+        this.height = height;
+        this.numPayloads = numPayloads;
+        this.setPosition(new Vector2D(400 - this.width, 800 - this.height));
+    }
+
+
     public void spawnPayloads() {
 
-        int max = 20;
-        int min = -20;
-
         ArrayList<Payload> payloads = new ArrayList<Payload>();
+
         //for every payload create it and add it to Fireworks
         for (int i = 0; i < numPayloads; i++) {
             Fireworks.addExplodable(new Payload(new Vector2D(this.getPosition().getX(), this.getPosition().getY())));

@@ -3,8 +3,7 @@ package demos;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class FireworkPanel extends JPanel implements Runnable{
 
@@ -22,22 +21,24 @@ public class FireworkPanel extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
+        this.setFocusable(true);
     }
 
 
     //method to start the firework demo
-    public void startFireworkDemo(){
+    public void startFireworkDemo() {
         demoThread = new Thread(this);
         demoThread.start();
 
-        //adding a mouse listener to the demo so that every time screen is clicked a firework starts
-        this.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent me) {
-                Fireworks.addExplodable(new Firework());
-            }
-        });
-    }
+//        //adding a mouse listener to the demo so that every time screen is clicked a firework starts
+//        this.addMouseListener(new MouseAdapter() {
+//            public void mousePressed(MouseEvent me) {
+//                Fireworks.addExplodable(new SmallFirework());
+//            }
+//        });
+        this.addKeyListener(new KeyboardListener());
 
+    }
 
     //simulation thread where the time loop is created
     @Override
@@ -85,5 +86,30 @@ public class FireworkPanel extends JPanel implements Runnable{
         Fireworks.drawAll(brush);
     }
 
+    static class KeyboardListener implements KeyListener{
 
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            switch (e.getKeyCode()){
+                case KeyEvent.VK_S:
+                    Fireworks.addExplodable(new SmallFirework());
+                    break;
+                case KeyEvent.VK_M:
+                    Fireworks.addExplodable(new MediumFirework());
+                    break;
+                case KeyEvent.VK_L:
+                    Fireworks.addExplodable(new LargeFirework());
+            }
+        }
+    }
 }
