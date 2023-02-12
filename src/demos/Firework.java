@@ -18,6 +18,7 @@ public abstract class Firework extends Particle implements Explodable {
     private int width;
     private int height;
     double randomXVelocity;
+    private double initialY;
 
     //random comments
     //the firework class will have two constructors one for a standard firework
@@ -25,11 +26,7 @@ public abstract class Firework extends Particle implements Explodable {
         random = new Random();
         this.setMass(1);//mass is not needed for now as no forces are added but will be used later when calculating force of gravity;
         this.setVelocity(new Vector2D(0, 0));
-
-        //getting random velocity for the x coordinates so that the firework doesn't always fly straight
-        randomXVelocity =Math.random() * (2 -(-2)) -2;
-
-        this.setAcceleration(new Vector2D(randomXVelocity, -20));
+        this.setAcceleration(new Vector2D(0, -20));
         this.setDamping(0.99);
         explosive = true;
     }
@@ -49,6 +46,9 @@ public abstract class Firework extends Particle implements Explodable {
             //removing the firework from the objects being updated in the fireworks class
             Fireworks.removeExplodable(this);
             //the firework explodes and releases payloads
+
+            //print firework description
+            printDescription();
             spawnPayloads();
         }
 
@@ -60,18 +60,21 @@ public abstract class Firework extends Particle implements Explodable {
         this.height = height;
         this.numPayloads = numPayloads;
         this.setPosition(new Vector2D(400 - this.width, 800 - this.height));
+        this.initialY=800-this.height;
     }
 
 
     public void spawnPayloads() {
-
-        ArrayList<Payload> payloads = new ArrayList<Payload>();
 
         //for every payload create it and add it to Fireworks
         for (int i = 0; i < numPayloads; i++) {
             Fireworks.addExplodable(new Payload(new Vector2D(this.getPosition().getX(), this.getPosition().getY())));
         }
 
+    }
+
+    private void printDescription(){
+        System.out.println("the firework in 7 seconds, with an initial velocity of 0 and an acceleration of "+getAcceleration().getY()+"\n travelled: " + Math.abs(initialY - getPosition().getY()));
     }
 
 
